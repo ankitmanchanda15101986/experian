@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.experian.dto.ExperianFileRefreshRequest;
@@ -33,12 +32,13 @@ import com.experian.dto.neo4j.response.WordCategoryResponse;
 import com.experian.mapper.ExperianNeo4JMapper;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.stereotype.Service;
 
 /**
  * @author manchanda.a
  *
  */
-@Component
+@Service
 public class ExternalService {
 	private static final Logger logger = LoggerFactory.getLogger(ExternalService.class);
 
