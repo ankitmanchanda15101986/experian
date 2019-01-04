@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,7 +34,7 @@ public class FileController {
 	private FileStorageService fileStorageService;
 	
 	
-	@PostMapping("/uploadFile")
+	@RequestMapping(value="/uploadFile", method=RequestMethod.POST)
 	public FileUploadResponseList uploadFile(@RequestParam("file") MultipartFile file) {
 		System.out.println("experianFileRequest : "); 
 		validate.validateFile(file);

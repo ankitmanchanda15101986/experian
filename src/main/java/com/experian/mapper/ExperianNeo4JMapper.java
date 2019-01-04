@@ -3,6 +3,8 @@ package com.experian.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.experian.dto.aiml.response.AimlFileFinalResponse;
 import com.experian.dto.aiml.response.AimlFileResponse;
 import com.experian.dto.neo4j.RequirementStatement;
@@ -10,6 +12,7 @@ import com.experian.dto.neo4j.TaxationBasedSuggestion;
 import com.experian.dto.neo4j.request.SuggestionRequest;
 import com.experian.dto.neo4j.request.TaxationBasedSuggestionRequest;
 
+@Component
 public class ExperianNeo4JMapper {
 	
 	/**

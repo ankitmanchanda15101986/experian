@@ -271,7 +271,7 @@ public class ExternalService {
 		ResponseEntity<TaxationResponse> response = getRestTemplate().getForEntity(uri, TaxationResponse.class);
 		return response.getBody();
 	}
-
+	
 	private RestTemplate getRestTemplate() {
 		template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 		template.getMessageConverters().add(new StringHttpMessageConverter());

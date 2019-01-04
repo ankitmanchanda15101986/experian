@@ -3,6 +3,8 @@ package com.experian.mapper;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
 import com.experian.dto.ExperianFileRequest;
 import com.experian.dto.FileUploadResponse;
 import com.experian.dto.aiml.request.AIMLFileRequest;
@@ -12,6 +14,7 @@ import com.experian.dto.neo4j.RequirementSuggestions;
 import com.experian.dto.neo4j.response.SuggestionResponse;
 import com.experian.dto.neo4j.response.WordCategoryResponse;
 
+@Component
 public class ExperianAIMLMapper {
 
 	/**

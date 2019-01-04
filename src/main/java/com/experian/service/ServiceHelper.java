@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.experian.dto.FileUploadResponse;
 import com.experian.dto.FileUploadResponseList;
@@ -23,6 +24,7 @@ import com.experian.mapper.ExperianAIMLMapper;
  * @author manchanda.a
  *
  */
+@Component
 public class ServiceHelper {
 	
 	@Autowired

@@ -5,6 +5,7 @@ package com.experian.validator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import com.experian.exception.FileStorageException;
@@ -13,6 +14,7 @@ import com.experian.exception.FileStorageException;
  * @author manchanda.a
  *
  */
+@Component
 public class Validator {
 	private static final Logger logger = LoggerFactory.getLogger(Validator.class);
 	
