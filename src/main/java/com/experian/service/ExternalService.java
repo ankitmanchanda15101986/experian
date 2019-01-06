@@ -25,7 +25,6 @@ import com.experian.dto.neo4j.RequirementStatement;
 import com.experian.dto.neo4j.RequirementSuggestions;
 import com.experian.dto.neo4j.Suggestions;
 import com.experian.dto.neo4j.request.FinalNeo4JRequest;
-import com.experian.dto.neo4j.request.SuggestionRequest;
 import com.experian.dto.neo4j.request.TaxationBasedSuggestionRequest;
 import com.experian.dto.neo4j.response.SuggestionResponse;
 import com.experian.dto.neo4j.response.TaxationResponse;
@@ -56,9 +55,6 @@ public class ExternalService {
 	
 	@Value("${service.neo4j.suggestion.uri}")
 	private String neo4jSuggestionUri;
-	
-	@Value("${service.search.suggestion.uri}")
-	private String searchSuggestionUri;
 	
 	@Value("${service.save.uri}")
 	private String saveUri;
@@ -111,7 +107,6 @@ public class ExternalService {
 	 */
 	public SuggestionResponse searchRequirementToGetSuggestions(String searchInput) {
 		// Get Word count.
-		String taxationLevel1 = "";
 		WordCategoryResponse wordCategoryResponse = getWordCategoryFromNeo4j();
 		if (wordCategoryResponse != null) {
 			AIMLFileRequest aIMLFileRequest = new AIMLFileRequest();
@@ -127,14 +122,15 @@ public class ExternalService {
 			// Call AIML to process request
 			AimlFileFinalResponse aimlResponse = processFileToAiml(aIMLFileRequest);
 			if(aimlResponse != null && !aimlResponse.getResponse().isEmpty()) {
-				taxationLevel1 = aimlResponse.getResponse().get(0).getTaxonomy_Level_1();
+				// Call to get suggestion.
+				TaxationBasedSuggestionRequest taxationBasedSuggestionRequest = neo4jMapper
+						.getTaxationBasedSuggestionFromAimlResponse(aimlResponse);
+				SuggestionResponse suggestionResponse = processFileToNeo4jToGetSuggestions(
+						taxationBasedSuggestionRequest);
+				return suggestionResponse;
 			}
 		}
-
-		SuggestionRequest suggestionRequest = neo4jMapper.convertRequirementStringToSuggestionRequest(searchInput, taxationLevel1);
-		ResponseEntity<SuggestionResponse> response = template.postForEntity(searchSuggestionUri, suggestionRequest,
-				SuggestionResponse.class);
-		return response.getBody();
+		return null;		
 	}
 
 	/**
