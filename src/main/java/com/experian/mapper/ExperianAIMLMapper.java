@@ -72,8 +72,10 @@ public class ExperianAIMLMapper {
 	 */
 	public Map<Integer, RequirementSuggestions> getRequirmementSuggestionsMapper(SuggestionResponse suggestionResponse) {
 		Map<Integer, RequirementSuggestions> map = new HashMap<>();
-		for (RequirementSuggestions response : suggestionResponse.getSuggestions()) {
-			map.put(response.getRequirements().getId(), response);
+		if(suggestionResponse != null) {
+			for (RequirementSuggestions response : suggestionResponse.getSuggestions()) {
+				map.put(response.getRequirements().getId(), response);
+			}
 		}
 		return map;
 		

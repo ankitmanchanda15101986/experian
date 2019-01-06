@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 @ComponentScan
@@ -21,7 +23,8 @@ public class ExperianApplication {
 	
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-	   // Do any additional configuration here
+		builder.build().getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+		builder.build().getMessageConverters().add(new StringHttpMessageConverter());
 	   return builder.build();
 	}
 }

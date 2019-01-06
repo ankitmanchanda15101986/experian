@@ -3,10 +3,6 @@
  */
 package com.experian.dto.neo4j.request;
 
-import java.util.List;
-
-import com.experian.dto.neo4j.RequirementStatement;
-
 
 
 /**
@@ -15,21 +11,23 @@ import com.experian.dto.neo4j.RequirementStatement;
  */
 public class SuggestionRequest {
 
-	private List<RequirementStatement> requirements;
-
-	/**
-	 * @return the requirements
-	 */
-	public List<RequirementStatement> getRequirements() {
-		return requirements;
+	private String requirementStatement;
+	private String taxation;
+	
+	
+	public String getRequirementStatement() {
+		return requirementStatement;
 	}
-
-	/**
-	 * @param requirements the requirements to set
-	 */
-	public void setRequirements(List<RequirementStatement> requirements) {
-		this.requirements = requirements;
+	public void setRequirementStatement(String requirementStatement) {
+		this.requirementStatement = requirementStatement;
 	}
+	public String getTaxation() {
+		return taxation;
+	}
+	public void setTaxation(String taxation) {
+		this.taxation = taxation;
+	}
+	
 	
 	
 }

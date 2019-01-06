@@ -13,8 +13,6 @@ public class Suggestions {
 
 	private int matchPercentage;
 	private String suggestion;
-	
-	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String taxation;
 	
 	

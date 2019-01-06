@@ -6,7 +6,6 @@ package com.experian.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,11 +15,10 @@ import com.experian.dto.ExperianFileRefreshRequest;
 import com.experian.dto.ExperianMatchedRequirementsRequest;
 import com.experian.dto.ExperianSearchRequest;
 import com.experian.dto.FileUploadResponse;
+import com.experian.dto.aiml.response.RefreshScoreResponse;
 import com.experian.dto.neo4j.request.FinalNeo4JRequest;
-import com.experian.dto.neo4j.request.SuggestionRequest;
 import com.experian.dto.neo4j.response.SuggestionResponse;
 import com.experian.dto.neo4j.response.TaxationResponse;
-import com.experian.mapper.ExperianNeo4JMapper;
 import com.experian.service.ExternalService;
 import com.experian.validator.Validator;
 
@@ -40,8 +38,6 @@ public class RequirementController {
 	@Autowired
 	private Validator validate;
 
-	@Autowired
-	private ExperianNeo4JMapper neo4jMapper;
 
 	@RequestMapping(value = "/submit", method = RequestMethod.POST)
 	private boolean submitRequirementToNeo4j(@RequestBody FinalNeo4JRequest request) {
@@ -56,9 +52,7 @@ public class RequirementController {
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	private SuggestionResponse searchResource(@RequestBody ExperianSearchRequest request) {
 		validate.validateSearchText(request.getSearchInput());
-		SuggestionRequest suggestionRequest = neo4jMapper
-				.convertRequirementStringToSuggestionRequest(request.getSearchInput());
-		SuggestionResponse response = service.searchRequirementToGetSuggestions(suggestionRequest);
+		SuggestionResponse response = service.searchRequirementToGetSuggestions(request.getSearchInput());
 		return response;
 	}
 
@@ -69,7 +63,7 @@ public class RequirementController {
 	 * @return
 	 */
 	@RequestMapping(value = "/refresh", method = RequestMethod.POST)
-	private Integer getScore(@RequestBody ExperianFileRefreshRequest request) {
+	private RefreshScoreResponse getScore(@RequestBody ExperianFileRefreshRequest request) {
 		return service.calculateScore(request);
 	}
 

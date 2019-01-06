@@ -17,6 +17,7 @@ import com.experian.dto.FileUploadResponseList;
 import com.experian.dto.aiml.response.AimlFileFinalResponse;
 import com.experian.dto.aiml.response.AimlFileResponse;
 import com.experian.dto.neo4j.RequirementSuggestions;
+import com.experian.dto.neo4j.Suggestions;
 import com.experian.dto.neo4j.response.SuggestionResponse;
 import com.experian.mapper.ExperianAIMLMapper;
 
@@ -42,7 +43,14 @@ public class ServiceHelper {
     	Map<Integer, AimlFileResponse> aimlResponse = aimlMapper.getAimlResponseMapper(aimlResponseList);
     	Map<Integer, RequirementSuggestions> suggestionsResponse = aimlMapper.getRequirmementSuggestionsMapper(suggestionResponseList);
     	for (Integer id : aimlResponse.keySet()) {
-    		map.put(aimlResponse.get(id), suggestionsResponse.get(id));
+    		if(suggestionsResponse != null && suggestionsResponse.containsKey(id)) {
+    			map.put(aimlResponse.get(id), suggestionsResponse.get(id));
+    		} else {
+    			RequirementSuggestions requirementSuggestions = new RequirementSuggestions();
+    			List<Suggestions> list = new ArrayList<Suggestions>();
+    			requirementSuggestions.setSuggestionResponse(list);
+    			map.put(aimlResponse.get(id), requirementSuggestions);
+    		}
 		}
     	return map;
     }

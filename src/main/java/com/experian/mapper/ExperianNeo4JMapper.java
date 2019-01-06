@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import com.experian.dto.aiml.response.AimlFileFinalResponse;
 import com.experian.dto.aiml.response.AimlFileResponse;
-import com.experian.dto.neo4j.RequirementStatement;
 import com.experian.dto.neo4j.TaxationBasedSuggestion;
 import com.experian.dto.neo4j.request.SuggestionRequest;
 import com.experian.dto.neo4j.request.TaxationBasedSuggestionRequest;
@@ -18,16 +17,13 @@ public class ExperianNeo4JMapper {
 	/**
 	 * This method will convert search request into suggestion request object.
 	 * @param requirement
+	 * @param taxationLevel1 
 	 * @return
 	 */
-	public SuggestionRequest convertRequirementStringToSuggestionRequest(String requirement) {
+	public SuggestionRequest convertRequirementStringToSuggestionRequest(String requirement, String taxationLevel1) {
 		SuggestionRequest suggestionRequest = new SuggestionRequest();
-		List<RequirementStatement> listRequirement = new ArrayList<RequirementStatement>();
-		RequirementStatement statement = new RequirementStatement();
-		statement.setId(1);
-		statement.setRequirementStatement(requirement);
-		listRequirement.add(statement);
-		suggestionRequest.setRequirements(listRequirement);
+		suggestionRequest.setRequirementStatement(requirement);
+		suggestionRequest.setTaxation(taxationLevel1);
 		return suggestionRequest;
 	}
 	
