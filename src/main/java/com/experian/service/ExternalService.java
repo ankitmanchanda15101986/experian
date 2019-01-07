@@ -21,6 +21,8 @@ import com.experian.dto.aiml.request.AIMLFileRequest;
 import com.experian.dto.aiml.response.AimlFileFinalResponse;
 import com.experian.dto.aiml.response.AimlFileResponse;
 import com.experian.dto.aiml.response.RefreshScoreResponse;
+import com.experian.dto.chatbot.request.ChatBotScoreRequest;
+import com.experian.dto.chatbot.response.ChatBotScoreResponse;
 import com.experian.dto.neo4j.RequirementStatement;
 import com.experian.dto.neo4j.RequirementSuggestions;
 import com.experian.dto.neo4j.Suggestions;
@@ -49,25 +51,27 @@ public class ExternalService {
 
 	@Autowired
 	private ExperianNeo4JMapper neo4jMapper;
-	
+
 	@Value("${service.aiml.processfile.uri}")
 	private String aimlProcessFileUri;
-	
+
 	@Value("${service.neo4j.suggestion.uri}")
 	private String neo4jSuggestionUri;
-	
+
 	@Value("${service.save.uri}")
 	private String saveUri;
-	
+
 	@Value("${service.word.category.uri}")
 	private String wordCategoryUri;
-	
+
 	@Value("${service.calculate.score.uri}")
 	private String calculateScoreUri;
-	
+
 	@Value("${service.taxation.uri}")
 	private String taxationUri;
-	
+
+	@Value("${service.chatbot.calculate.score.uri}")
+	private String chatbotCalculateScoreUri;
 
 	/**
 	 * This method will call AI/ML service and pass requirement statement , in
@@ -121,7 +125,7 @@ public class ExternalService {
 
 			// Call AIML to process request
 			AimlFileFinalResponse aimlResponse = processFileToAiml(aIMLFileRequest);
-			if(aimlResponse != null && !aimlResponse.getResponse().isEmpty()) {
+			if (aimlResponse != null && !aimlResponse.getResponse().isEmpty()) {
 				// Call to get suggestion.
 				TaxationBasedSuggestionRequest taxationBasedSuggestionRequest = neo4jMapper
 						.getTaxationBasedSuggestionFromAimlResponse(aimlResponse);
@@ -130,7 +134,7 @@ public class ExternalService {
 				return suggestionResponse;
 			}
 		}
-		return null;		
+		return null;
 	}
 
 	/**
@@ -152,7 +156,8 @@ public class ExternalService {
 	 * @return
 	 */
 	public WordCategoryResponse getWordCategoryFromNeo4j() {
-		ResponseEntity<WordCategoryResponse> response = template.getForEntity(wordCategoryUri, WordCategoryResponse.class);
+		ResponseEntity<WordCategoryResponse> response = template.getForEntity(wordCategoryUri,
+				WordCategoryResponse.class);
 		return response.getBody();
 	}
 
@@ -306,5 +311,25 @@ public class ExternalService {
 	public TaxationResponse getTaxation() {
 		ResponseEntity<TaxationResponse> response = template.getForEntity(taxationUri, TaxationResponse.class);
 		return response.getBody();
+	}
+
+	/**
+	 * This method will calculate chatbot score.
+	 * @param requirement
+	 * @return
+	 */
+	public ChatBotScoreResponse calculateChatBotScore(String requirement) {
+		// Get Word count.
+		WordCategoryResponse wordCategoryResponse = getWordCategoryFromNeo4j();
+		if (wordCategoryResponse != null) {
+			ChatBotScoreRequest request = new ChatBotScoreRequest();
+			request.setRequirement(requirement);
+			request.setWordCategory(wordCategoryResponse.getWordCategory());
+			ResponseEntity<ChatBotScoreResponse> response = template.postForEntity(
+					chatbotCalculateScoreUri,request, ChatBotScoreResponse.class);
+			return response.getBody();
+		}
+
+		return null;
 	}
 }
