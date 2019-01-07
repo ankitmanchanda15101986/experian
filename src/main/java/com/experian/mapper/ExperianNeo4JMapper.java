@@ -26,7 +26,7 @@ public class ExperianNeo4JMapper {
 			for (AimlFileResponse response : aimlResponse.getResponse()) {
 				TaxationBasedSuggestion taxationBasedSuggestion = new TaxationBasedSuggestion();
 				taxationBasedSuggestion.setId(response.getRequirementStatement().getId());
-				taxationBasedSuggestion.setRequirementStatement(response.getRequirementStatement().getRequirementStatement());
+				taxationBasedSuggestion.setRequirementStatement(response.getRequirementStatement().getRequirement());
 				taxationBasedSuggestion.setTaxation(response.getTaxonomy_Level_1());
 				taxationBasedSuggestionlist.add(taxationBasedSuggestion);
 			}

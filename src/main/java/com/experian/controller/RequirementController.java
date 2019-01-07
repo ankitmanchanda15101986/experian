@@ -51,8 +51,8 @@ public class RequirementController {
 	 */
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	private SuggestionResponse searchResource(@RequestBody ExperianSearchRequest request) {
-		validate.validateSearchText(request.getSearchInput());
-		SuggestionResponse response = service.searchRequirementToGetSuggestions(request.getSearchInput());
+		validate.validateSearchText(request.getRequirement());
+		SuggestionResponse response = service.searchRequirementToGetSuggestions(request.getRequirement());
 		return response;
 	}
 
@@ -88,7 +88,7 @@ public class RequirementController {
 	 */
 	@RequestMapping(value = "/add/no/match", method = RequestMethod.POST)
 	private FileUploadResponse addNoMatchFoundForResource(@RequestBody ExperianSearchRequest request) {
-		return service.addNoMatchedRequirement(request.getSearchInput());
+		return service.addNoMatchedRequirement(request.getRequirement());
 	}
 
 	/**
@@ -99,7 +99,7 @@ public class RequirementController {
 	 */
 	@RequestMapping(value = "/add/new", method = RequestMethod.POST)
 	private FileUploadResponse addNewResource(@RequestBody ExperianSearchRequest request) {
-		return service.addNewRequirement(request.getSearchInput());
+		return service.addNewRequirement(request.getRequirement());
 	}
 
 	/**
@@ -109,4 +109,14 @@ public class RequirementController {
 	private TaxationResponse getTaxation() {
 		return service.getTaxation();
 	}
+	
+	/**
+	 * This controller will be called when chatbot send request to get quality score.
+	 * @param request
+	 */
+	@RequestMapping(value="/chatbot/quality/score", method = RequestMethod.POST)
+	private void getChatbotQualityScore(@RequestBody ExperianSearchRequest request) {
+		
+	}
+	
 }

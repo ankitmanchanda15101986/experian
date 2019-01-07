@@ -113,7 +113,7 @@ public class ExternalService {
 			List<RequirementStatement> requirementStatementList = new ArrayList<RequirementStatement>();
 			RequirementStatement requirementStatement = new RequirementStatement();
 			requirementStatement.setId(1);
-			requirementStatement.setRequirementStatement(searchInput);
+			requirementStatement.setRequirement(searchInput);
 			requirementStatementList.add(requirementStatement);
 
 			aIMLFileRequest.setRequirementStatement(requirementStatementList);
@@ -185,7 +185,7 @@ public class ExternalService {
 			List<RequirementStatement> requirementStatementList = new ArrayList<RequirementStatement>();
 			RequirementStatement requirementStatement = new RequirementStatement();
 			requirementStatement.setId(1);
-			requirementStatement.setRequirementStatement(requirement);
+			requirementStatement.setRequirement(requirement);
 			requirementStatementList.add(requirementStatement);
 
 			aIMLFileRequest.setRequirementStatement(requirementStatementList);
@@ -230,7 +230,7 @@ public class ExternalService {
 			for (Suggestions suggestions : suggestionList) {
 				RequirementStatement requirementStatement = new RequirementStatement();
 				requirementStatement.setId(count);
-				requirementStatement.setRequirementStatement(suggestions.getSuggestion());
+				requirementStatement.setRequirement(suggestions.getSuggestion());
 				count++;
 				requirementStatementList.add(requirementStatement);
 
@@ -275,7 +275,7 @@ public class ExternalService {
 			List<RequirementStatement> requirementStatementList = new ArrayList<RequirementStatement>();
 			RequirementStatement requirementStatement = new RequirementStatement();
 			requirementStatement.setId(1);
-			requirementStatement.setRequirementStatement(requirement);
+			requirementStatement.setRequirement(requirement);
 			requirementStatementList.add(requirementStatement);
 			aIMLFileRequest.setRequirementStatement(requirementStatementList);
 			aIMLFileRequest.setWordCategory(wordCategoryResponse);

@@ -108,7 +108,7 @@ public class FileStorageService {
             	System.out.println("experianFileRequest : "+experianFileRequest); 
             	// it will call neo4j service to get master data.
             	WordCategoryResponse wordCategoryResponse = externalService.getWordCategoryFromNeo4j();
-            	logger.debug("Word category response ", wordCategoryResponse.getResponse().toString());
+            	logger.debug("Word category response ", wordCategoryResponse.getWordCategory().toString());
             	
             	// it will call AI/ML Service to fetch score .
             	AIMLFileRequest aimlFileRequest = aimlMapper.mapBatchRequestToAIMLRequest(wordCategoryResponse, experianFileRequest);
@@ -155,8 +155,8 @@ public class FileStorageService {
                 Row currentRow = iterator.next();
                 RequirementStatement requirement = new RequirementStatement();
                 requirement.setId(count);
-                requirement.setRequirementStatement(currentRow.getCell(0).getStringCellValue());
-                logger.info("requirement number "+requirement.getId()+" requirement : "+requirement.getRequirementStatement());
+                requirement.setRequirement(currentRow.getCell(0).getStringCellValue());
+                logger.info("requirement number "+requirement.getId()+" requirement : "+requirement.getRequirement());
                 requirementList.add(requirement);
                 count++;
             }

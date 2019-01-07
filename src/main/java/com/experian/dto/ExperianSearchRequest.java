@@ -9,21 +9,23 @@ package com.experian.dto;
  */
 public class ExperianSearchRequest {
 
-	private String searchInput;
+	private String requirement;
 
 	/**
-	 * @return the searchInput
+	 * @return the requirement
 	 */
-	public String getSearchInput() {
-		return searchInput;
+	public String getRequirement() {
+		return requirement;
 	}
 
 	/**
-	 * @param searchInput the searchInput to set
+	 * @param requirement the requirement to set
 	 */
-	public void setSearchInput(String searchInput) {
-		this.searchInput = searchInput;
+	public void setRequirement(String requirement) {
+		this.requirement = requirement;
 	}
+
+	
 	
 	
 }

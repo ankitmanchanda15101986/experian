@@ -11,28 +11,34 @@ import java.util.List;
  */
 public class WordCategoryResponse {
 
-	private List<WordCategory> response;
+	private List<WordCategory> wordCategory;
 
+	
+	
 	/**
-	 * @return the response
+	 * @return the wordCategory
 	 */
-	public List<WordCategory> getResponse() {
-		return response;
+	public List<WordCategory> getWordCategory() {
+		return wordCategory;
 	}
 
+
+
 	/**
-	 * @param response the response to set
+	 * @param wordCategory the wordCategory to set
 	 */
-	public void setResponse(List<WordCategory> response) {
-		this.response = response;
+	public void setWordCategory(List<WordCategory> wordCategory) {
+		this.wordCategory = wordCategory;
 	}
+
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "WordCategoryResponse [response=" + response + ", getResponse()=" + getResponse() + ", getClass()="
+		return "WordCategoryResponse [response=" + wordCategory + ", getResponse()=" + getWordCategory() + ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 	
